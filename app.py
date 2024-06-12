@@ -10,7 +10,7 @@ from transformers import (
     pipeline,
 )
 from flask import Flask, request, jsonify, abort
-from pyngrok import ngrok
+import os
 
 # Load model and tokenizer
 llama_model = AutoModelForCausalLM.from_pretrained(
@@ -64,8 +64,8 @@ def get_answer(question):
 
 app = Flask(__name__)
 
-# Define a fixed API key for simplicity
-API_KEY = "ppppxrdpg2627897youarepig"
+# Retrieve the API key from environment variables
+API_KEY = os.getenv("API_KEY")
 
 
 # Decorator for API key authentication
@@ -89,6 +89,4 @@ def process():
 
 
 if __name__ == "__main__":
-    public_url = ngrok.connect(port=5000)
-    print(f"Public URL: {public_url}")
-    app.run(port=5000)
+    app.run(host="0.0.0.0", port=5000)
