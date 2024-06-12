@@ -64,7 +64,7 @@ llama_sft_trainer.train()
 
 """## Step 7: Chatting with the model"""
 
-user_prompt = "What is a Colonoscopy?"
+user_prompt = input("Type your question")
 text_generation_pipeline = pipeline(
     task="text-generation", model=llama_model, tokenizer=llama_tokenizer, max_length=300
 )
