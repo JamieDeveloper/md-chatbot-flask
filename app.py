@@ -9,7 +9,7 @@ from transformers import (
     TrainingArguments,
     pipeline,
 )
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from pyngrok import ngrok
 
 # Load model and tokenizer
@@ -64,8 +64,24 @@ def get_answer(question):
 
 app = Flask(__name__)
 
+# Define a fixed API key for simplicity
+API_KEY = "ppppxrdpg2627897youarepig"
+
+
+# Decorator for API key authentication
+def require_api_key(f):
+    def decorator(*args, **kwargs):
+        api_key = request.headers.get("x-api-key")
+        if api_key and api_key == API_KEY:
+            return f(*args, **kwargs)
+        else:
+            abort(401, description="Unauthorized")
+
+    return decorator
+
 
 @app.route("/process", methods=["POST"])
+@require_api_key
 def process():
     data = request.json.get("data")
     result = get_answer(data)
