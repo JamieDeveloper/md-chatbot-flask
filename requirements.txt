@@ -8,3 +8,4 @@ pyngrok
 huggingface_hub
 torch
 datasets
+gunicorn

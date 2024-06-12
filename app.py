@@ -12,17 +12,6 @@ from transformers import (
 from flask import Flask, request, jsonify
 from pyngrok import ngrok
 
-# Install dependencies
-import os
-
-os.system(
-    "pip install -q accelerate==0.21.0 peft==0.4.0 bitsandbytes==0.40.2 transformers==4.31.0 trl==0.4.7"
-)
-os.system("export LC_ALL=C.UTF-8")
-os.system("export LANG=C.UTF-8")
-os.system("pip install flask pyngrok")
-os.system("pip install huggingface_hub")
-
 # Load model and tokenizer
 llama_model = AutoModelForCausalLM.from_pretrained(
     pretrained_model_name_or_path="aboonaji/llama2finetune-v2",
